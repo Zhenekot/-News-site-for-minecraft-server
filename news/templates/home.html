@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{%load static %}
+{% block title %}Главная{% endblock %}
+
+{% block content %}
+
+<div id="carouselExampleCaptions" class="carousel  slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"
+                aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="3" aria-label="Slide 4"></button>
+    </div>
+    <div class="carousel-inner otstup-carousel">
+        <div class="carousel-item active">
+            <img  src="{% static "img/tur3.jpg"%}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Какой-то текст</h5>
+                <p>Какой-то текст</p>
+            </div>
+        </div>
+        <div  class="carousel-item">
+            <img  src="{% static "img/tur5.jpg"%}"  class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Какой-то текст</h5>
+                <p>Какой-то текст</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static "img/tur6.jpg"%}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Какой-то текст</h5>
+                <p>Какой-то текст</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static "img/tur7.jpg"%}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Какой-то текст</h5>
+                <p>Какой-то текст</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Предыдущий</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Следующий</span>
+    </button>
+</div>
+<div class="container mt-5">
+    <h2 class="mb-4">Новостная лента</h2>
+
+    <div class="row">
+        {% for news in news_list %}
+            <div class="col-md-6 mb-4">
+                <div class="card">
+                    <div class="news-item">
+    <h2>{{ news.title }}</h2>
+    <p class="description">{{ news.description }}</p>
+    {% if news.description|length > 1 %}
+      <a href="#" class="toggle-description-link">Развернуть</a>
+    {% endif %}
+  </div>
+                    <div id="carousel{{ news.id }}" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            {% for picture in news.picture_set.all %}
+                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                    <img src="{{ picture.path.url }}" alt="{{ picture.id }}" class="d-block w-100">
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{ news.id }}" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carousel{{ news.id }}" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const toggleLinks = document.querySelectorAll('.toggle-description-link');
+
+    toggleLinks.forEach(link => {
+      const description = link.previousElementSibling;
+      const originalText = description.innerText;
+      const truncatedText = originalText.slice(0, 1);
+
+      description.innerText = truncatedText;
+
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        if (description.innerText === truncatedText) {
+          description.innerText = originalText;
+          link.innerText = 'Свернуть';
+        } else {
+          description.innerText = truncatedText;
+          link.innerText = 'Развернуть';
+        }
+
+        description.classList.toggle('expanded');
+      });
+    });
+  });
+</script>
+{% endblock %}
