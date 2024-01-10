@@ -97,7 +97,7 @@ class NewAdmin(admin.ModelAdmin):
         - delete_queryset: Переопределение метода при удалении группы объектов.
     """
     form = NewAdminForm
-    list_display = ['id', 'title', 'author', 'is_archived']
+    list_display = ['id', 'title', 'author', 'date_of_create', 'is_archived']
     search_fields = ['title']
     list_filter = ('author',)
     list_editable = ('is_archived',)

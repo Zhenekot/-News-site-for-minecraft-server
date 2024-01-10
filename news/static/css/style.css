@@ -81,9 +81,6 @@ input.visually-hidden {
   padding: 0 15px;
 }
 
-main.container {
-  margin-bottom: 202px;
-}
 
 .button {
   display: block;
@@ -2143,14 +2140,23 @@ th {
   margin-top: 10px;
   color: blue;
   cursor: pointer;
-  transition: color 0.5s ease; /* Плавная анимация цвета текста */
+  transition: color 0.5s ease;
 }
 
-/* Когда класс expanded присутствует, увеличиваем max-height до достижения максимальной высоты */
 .news-item .description.expanded {
-  max-height: 1000px; /* Значение больше максимальной высоты, чтобы описание могло полностью развернуться */
+  max-height: 1000px;
 }
 
 .news-item .toggle-description-link.expanded {
-  color: red; /* Меняем цвет текста при развернутом описании */
+  color: red;
+}
+
+.pagination-container {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff; /* Задайте цвет фона по вашему выбору */
+    box-shadow: 0px -5px 10px rgba(0, 0, 0, 0.1); /* Тень под блоком */
+    z-index: 1000; /* Уровень z-index, чтобы блок был выше других элементов */
 }

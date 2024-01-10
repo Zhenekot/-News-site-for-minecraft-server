@@ -242,8 +242,14 @@ class New(models.Model):
         blank=True,
         verbose_name=_('Автор')
     )
-
+    date_of_create = models.DateTimeField(editable=False, null=True, blank=True, verbose_name='Дата создания новости')
     is_archived = models.BooleanField(default=False, verbose_name="Архивирован")
+
+    def save(self, *args, **kwargs):
+        if not self.date_of_create:
+            self.date_of_create = timezone.localtime(timezone.now())
+
+        super(New, self).save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         """ Переопределяет метод удаления, помечая объект как архивированный вместо удаления. """
