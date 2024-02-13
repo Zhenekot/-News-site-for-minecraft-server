@@ -1,5 +1,5 @@
 from django import forms
-from .models import Role, User, Picture, New
+from .models import Role, User, Picture, New, ViewCount
 from django.contrib.auth.hashers import make_password, is_password_usable
 class RoleAdminForm(forms.ModelForm):
     """
@@ -103,3 +103,10 @@ class UserAdminForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+
+
+class ViewCountAdminForm(forms.ModelForm):
+
+    class Meta:
+        model = ViewCount
+        fields = '__all__'

@@ -265,6 +265,12 @@ class New(models.Model):
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
 
+    def get_view_count(self):
+        """
+        Возвращает количество просмотров для данной статьи
+        """
+        return self.views.count()
+
 
 class Picture(models.Model):
     path = models.FileField(upload_to='static/img/', verbose_name="Изображение", validators=[
@@ -291,3 +297,21 @@ class Picture(models.Model):
     class Meta:
         verbose_name = "Изображение"
         verbose_name_plural = "Изображения"
+
+
+class ViewCount(models.Model):
+    """
+    Модель просмотров для статей
+    """
+    new = models.ForeignKey('New', on_delete=models.CASCADE, related_name='views')
+    ip_address = models.GenericIPAddressField(verbose_name='IP адрес')
+    viewed_on = models.DateTimeField(auto_now_add=True, verbose_name='Дата просмотра')
+
+    class Meta:
+        ordering = ('-viewed_on',)
+        indexes = [models.Index(fields=['-viewed_on'])]
+        verbose_name = 'Просмотр'
+        verbose_name_plural = 'Просмотры'
+
+    def __str__(self):
+        return self.new.title

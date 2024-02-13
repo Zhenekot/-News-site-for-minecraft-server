@@ -13,7 +13,7 @@
             <div class="col-md-6 mb-4">
                 <div class="card">
                     <div class="news-item">
-    <h2>{{ news.title }}</h2>
+                        <h2><a href="{% url 'news_detail' news.pk %}">{{ news.title }}</a></h2>
     <p class="description">{{ news.date_of_create|date:"H:i d.m.Y" }}</p>
     <p class="description">{{ news.description }}</p>
 

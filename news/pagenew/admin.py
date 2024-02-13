@@ -1,24 +1,10 @@
 from django.contrib import admin
-from .models import Role, User, New, Picture
-from .forms import RoleAdminForm,UserAdminForm, NewAdminForm, PictureAdminForm
+from .models import Role, User, New, Picture, ViewCount
+from .forms import RoleAdminForm, UserAdminForm, NewAdminForm, PictureAdminForm, ViewCountAdminForm
 from django.contrib.auth.forms import AdminPasswordChangeForm
 
+
 class RoleAdmin(admin.ModelAdmin):
-    """
-        Класс RoleAdmin предназначен для настройки представления модели Role
-        в административной панели.
-
-        Атрибуты:
-        - form: Класс формы для кастомизации отображения полей модели в админ-панели.
-        - list_display: Список полей, которые будут отображаться в таблице списка объектов.
-        - search_fields: Поля, по которым можно выполнять поиск объектов.
-        - ordering: Порядок сортировки объектов в списке.
-        - list_per_page: Количество объектов на странице.
-
-        Методы:
-        - delete_model: Переопределение метода при удалении одиночного объекта.
-        - delete_queryset: Переопределение метода при удалении группы объектов.
-    """
     form = RoleAdminForm
     list_display = ('title',)
     search_fields = ('title',)
@@ -39,23 +25,7 @@ admin.site.register(Role, RoleAdmin)
 
 
 class UserAdmin(admin.ModelAdmin):
-    """
-       Класс UserAdmin предназначен для настройки представления модели User
-       в административной панели.
 
-       Атрибуты:
-       - form: Класс формы для кастомизации отображения полей модели в админ-панели.
-       - change_password_form: Форма для изменения пароля пользователя.
-       - list_display: Список полей, которые будут отображаться в таблице списка объектов.
-       - search_fields: Поля, по которым можно выполнять поиск объектов.
-       - ordering: Порядок сортировки объектов в списке.
-       - list_filter: Фильтры для упрощения поиска объектов по ключевым характеристикам.
-       - list_per_page: Количество объектов на странице.
-
-       Методы:
-        - delete_model: Переопределение метода при удалении одиночного объекта.
-        - delete_queryset: Переопределение метода при удалении группы объектов.
-    """
     form = UserAdminForm
     change_password_form = AdminPasswordChangeForm
     list_display = ['name', 'email', 'login', 'role', 'is_archived']
@@ -79,23 +49,7 @@ admin.site.register(User, UserAdmin)
 
 
 class NewAdmin(admin.ModelAdmin):
-    """
-       Класс UserAdmin предназначен для настройки представления модели User
-       в административной панели.
 
-       Атрибуты:
-       - form: Класс формы для кастомизации отображения полей модели в админ-панели.
-       - change_password_form: Форма для изменения пароля пользователя.
-       - list_display: Список полей, которые будут отображаться в таблице списка объектов.
-       - search_fields: Поля, по которым можно выполнять поиск объектов.
-       - ordering: Порядок сортировки объектов в списке.
-       - list_filter: Фильтры для упрощения поиска объектов по ключевым характеристикам.
-       - list_per_page: Количество объектов на странице.
-
-       Методы:
-        - delete_model: Переопределение метода при удалении одиночного объекта.
-        - delete_queryset: Переопределение метода при удалении группы объектов.
-    """
     form = NewAdminForm
     list_display = ['id', 'title', 'author', 'date_of_create', 'is_archived']
     search_fields = ['title']
@@ -117,23 +71,7 @@ admin.site.register(New, NewAdmin)
 
 
 class PictureAdmin(admin.ModelAdmin):
-    """
-       Класс UserAdmin предназначен для настройки представления модели User
-       в административной панели.
 
-       Атрибуты:
-       - form: Класс формы для кастомизации отображения полей модели в админ-панели.
-       - change_password_form: Форма для изменения пароля пользователя.
-       - list_display: Список полей, которые будут отображаться в таблице списка объектов.
-       - search_fields: Поля, по которым можно выполнять поиск объектов.
-       - ordering: Порядок сортировки объектов в списке.
-       - list_filter: Фильтры для упрощения поиска объектов по ключевым характеристикам.
-       - list_per_page: Количество объектов на странице.
-
-       Методы:
-        - delete_model: Переопределение метода при удалении одиночного объекта.
-        - delete_queryset: Переопределение метода при удалении группы объектов.
-    """
     form = PictureAdminForm
     list_display = ['id', 'path', 'new', 'is_archived']
     search_fields = ['new']
@@ -151,3 +89,10 @@ class PictureAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Picture, PictureAdmin)
+
+
+class ViewCountAdmin(admin.ModelAdmin):
+    form = ViewCountAdminForm
+
+
+admin.site.register(ViewCount, ViewCountAdmin)
